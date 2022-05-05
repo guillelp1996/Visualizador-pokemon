@@ -9,12 +9,11 @@ const d = document,
   $contenedorResultados = d.getElementById("resultados"),
   $contCargando = d.getElementById("cargando"),
   $contenedorPokemon = d.getElementById("contenedorPokemon");
-let nombres = [];
 let pokeUrl = [];
 var pokemon = [];
 
 fetch(url, { method: "GET" })
-  .then((r) => r.json()) // change to JSON data
+  .then(r =>  r.json()) // change to JSON data
   .then((d) => {
     let data = d.results;
     for (const p of data) {
@@ -38,9 +37,13 @@ fetch(url, { method: "GET" })
         });
     });
   })
-  .then(() => {
-    localStorage.setItem("pokemons", JSON.stringify(pokemon));
-  });
+
+  setTimeout(()=>{
+      console.log(pokemon)
+      localStorage.setItem("pokemon", JSON.stringify(pokemon) )
+  },3000)
+
+
 //FUNCIONES
 
 const MostrarResultados = (resultados) => {
@@ -56,7 +59,7 @@ const MostrarResultados = (resultados) => {
 const BuscarResultados = (textoInput) => {
   const PosiblesResultados = [];
   if (textoInput !== "") {
-    nombres.forEach((elemento) => {
+    pokemon.forEach((elemento) => {
       if (elemento.startsWith(textoInput)) PosiblesResultados.push(elemento);
     });
   }
