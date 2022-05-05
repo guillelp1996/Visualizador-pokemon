@@ -40,7 +40,7 @@ fetch(url, { method: "GET" })
 
   setTimeout(()=>{
       console.log(pokemon)
-      localStorage.setItem("pokemon", JSON.stringify(pokemon) )
+    //   localStorage.setItem("pokemon", JSON.stringify(pokemon) )
   },3000)
 
 
@@ -65,6 +65,8 @@ const BuscarResultados = (textoInput) => {
   }
   MostrarResultados(PosiblesResultados);
 };
+
+// DOM AREA
 
 $btnAbrirBuscador.addEventListener("click", () =>
   $contBuscador.classList.remove("esconder")
