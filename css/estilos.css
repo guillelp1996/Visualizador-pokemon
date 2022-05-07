@@ -2,12 +2,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  list-style: none;
 }
 html,
 body {
   width: 100%;
   height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 header {
@@ -79,85 +79,68 @@ nav .btnAbrirBuscador {
   outline: none;
 }
 
-.resultados {
-  width: 80%;
-  max-width: 920px;
-  margin: 20px auto;
-}
-
-.resultados p {
-  margin: 20px 0px;
-  padding: 10px;
-  text-transform: capitalize;
-  font-size: 1.2em;
-  cursor: pointer;
-}
-
-.cargando {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  z-index: 3;
-}
-
-.parteArriba,
-.parteAbajo {
-  width: 100%;
-  height: 50%;
-}
-.parteArriba img,
-.parteAbajo img {
-  width: 50%;
-}
-.parteArriba {
-  background-color: red;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-}
-.parteAbajo {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
 .contenedorPokemon {
-  width: 100%;
-  max-width: 600px;
-  margin: 20px auto;
+  background: linear-gradient(to right, #fad61f, #fad61f);
+
+  width: 430px;
+  height: auto;
+  margin: 10%;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px opx 10px black;
+}
+
+.background {
+  text-align: center;
+  background: linear-gradient(to right, #6a130e, #504921);
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+.image {
+  width: 200px;
+  height: 200px;
+  padding-top: 0.2rem;
+  border-radius: 10px;
+}
+
+.content {
+  background: linear-gradient(to right, #f5e593, #fff2af);
+
+  padding: 10px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+.pokemon-name {
+  text-align: center;
+  font-size: 19px;
+  font-weight: lighter;
+  padding: 5px;
+}
+
+.pokemon-type {
+  background-color: black;
+  padding: 7px;
+  color: white;
+  border-radius: 5px;
+  width: 100px;
+  display: block;
+  text-align: center;
+  position: relative;
+  top: -50px;
+}
+
+.pokemon-logo {
+  text-align: center;
+  font-size: 14px;
+  padding: 20px;
+}
+
+.pokemon-stats > p {
+  letter-spacing: 1px;
 }
 
 .esconder {
   display: none;
-}
-
-.from ul {
-  display: flex;
-  padding: 1rem;
-  gap: 1rem;
-  border: solid;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.from li {
-  background-color: red;
-  box-shadow: rgba(0, 0, 0, 0, 50%);
-  width: 600px;
-  height: 20%;
-  text-align: center;
-}
-
-.from h2 {
-  text-align: center;
-  padding: 1rem;
-}
-
-.botton {
-  text-align: center;
-  padding: 1rem;
-}
-
-.from p {
-  text-align: center;
 }
