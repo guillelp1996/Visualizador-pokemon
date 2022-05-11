@@ -1,3 +1,4 @@
+"use strict";
 const d = document,
   $btnAbrirBuscador = d.getElementById("btnAbrirBuscador"),
   $btnRegresarPrincipal = d.getElementById("btnRegresar"),
@@ -53,7 +54,7 @@ function buscarPokemons(textoInput) {
   rederPokelist(posiblesResultados);
 }
 function rederPokelist(arrPoke) {
-  let results = [];
+  var results=[] ;
   for (let i = 0; i < arrPoke.length; i++) {
     results += `
     
@@ -105,8 +106,7 @@ function rederPokelist(arrPoke) {
 
 $btnAbrirBuscador.addEventListener("click", () => {
   $contBuscador.classList.remove("esconder");
-  console.log(pokemons);
-});
+ });
 
 $btnRegresarPrincipal.addEventListener("click", () =>
   $contBuscador.classList.add("esconder")
@@ -114,5 +114,4 @@ $btnRegresarPrincipal.addEventListener("click", () =>
 
 $inputBuscador.addEventListener("keyup", (e) => {
   buscarPokemons(e.target.value);
-  //   console.log(e.target.value)
 });
