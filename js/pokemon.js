@@ -1,6 +1,8 @@
 "use strict";
 
+
 const url = "https://pokeapi.co/api/v2/pokemon?limit=1126";
+
 const d = document,
   $btnAbrirBuscador = d.getElementById("btnAbrirBuscador"),
   $btnRegresarPrincipal = d.getElementById("btnRegresar"),
@@ -9,6 +11,7 @@ const d = document,
   $contenedorResultados = d.getElementById("resultados"),
   $contCargando = d.getElementById("cargando"),
   $contenedorPokemon = d.getElementById("contenedorPokemon");
+
 let pokeUrl = [];
 var pokemon = [];
 
@@ -44,44 +47,130 @@ fetch(url, { method: "GET" })
   },3000)
 
 
-//FUNCIONES
 
-const MostrarResultados = (resultados) => {
-  const $fragmento = d.createDocumentFragment();
-  resultados.forEach((elemento) => {
-    const $p = d.createElement("p");
-    $p.textContent = elemento;
-    $fragmento.appendChild($p);
+
+const url = "https://pokeapi.co/api/v2/pokemon?limit=1126";
+var urlPokemon = [];
+var pokemons = [];
+
+window.addEventListener("DOMContentLoaded", async () => {
+  const pokeData = await getUrlPokemon(url);
+  let data = pokeData.results;
+  for (let i = 0; i < data.length; i++) {
+    urlPokemon.push(data[i].url);
+  }
+  getAllPokemons();
+});
+
+async function getUrlPokemon(url) {
+  const res = await fetch(url);
+  return await res.json();
+}
+
+async function getAllPokemons() {
+  Promise.all(
+    urlPokemon.map((url) => fetch(url).then((resp) => resp.json()))
+  ).then((d) => {
+    d.forEach((item) => {
+      let newObj = {};
+      newObj.name = item.name;
+      newObj.weight = item.weight;
+      newObj.height = item.height;
+      newObj.stats = item.stats;
+      newObj.types = item.types;
+      newObj.sprites = item.sprites;
+      pokemons.push(newObj);
+    });
   });
-  $contenedorResultados.replaceChildren($fragmento);
-};
+}
 
-const BuscarResultados = (textoInput) => {
-  const PosiblesResultados = [];
+function buscarPokemons(textoInput) {
+  const posiblesResultados = [];
   if (textoInput !== "") {
+
     pokemon.forEach((elemento) => {
       if (elemento.startsWith(textoInput)) PosiblesResultados.push(elemento);
+
+    pokemons.forEach((elemento) => {
+      if (elemento.name.startsWith(textoInput))
+        posiblesResultados.push(elemento);
+
     });
   }
-  MostrarResultados(PosiblesResultados);
-};
+  rederPokelist(posiblesResultados);
+}
+function rederPokelist(arrPoke) {
+  var results=[] ;
+  for (let i = 0; i < arrPoke.length; i++) {
+    results += `
+    
+    <div class="pokemon-card">
+    <div class="background">
+      <img
+        class="image"
+        src=${
+          arrPoke[i].sprites.front_default == null
+            ? " https://png.pngitem.com/pimgs/s/30-302283_pikachu-pokmon-go-silhouette-drawing-whos-that-pokemon.png "
+            : arrPoke[i].sprites.front_default
+        }
+        alt="${arrPoke[i].name}"
+      />
+      <img
+        class="image"
+        src=${
+          arrPoke[i].sprites.back_default == null
+            ? " https://png.pngitem.com/pimgs/s/30-302283_pikachu-pokmon-go-silhouette-drawing-whos-that-pokemon.png "
+            : arrPoke[i].sprites.back_default
+        }
+        alt=${arrPoke[i].name}
+      />
+    </div>
+
 
 // DOM AREA
 
 $btnAbrirBuscador.addEventListener("click", () =>
   $contBuscador.classList.remove("esconder")
 );
+=======
+    <div class="content">
+      <h1 class="pokemon-name">${arrPoke[i].name}</h1>
+      <span class="pokemon-type">${arrPoke[i].types[0].type.name}</span>
+
+      <div class="pokemon-stats">
+        <p>Altura : ${arrPoke[i].height} cm</p>
+        <p>Peso : ${arrPoke[i].weight}</p>
+        <p>Puntos de vida : ${arrPoke[i].stats[0].base_stat}</p>
+        <p>Ataque : ${arrPoke[i].stats[1].base_stat}</p>
+        <p>Defensa : ${arrPoke[i].stats[2].base_stat}</p>
+        <p>Velocidad : ${arrPoke[i].stats[5].base_stat}</p>
+        <p>Tipos que pertenece :</p>
+        ${arrPoke[i].types[0].type.name} <br>
+      </div>
+      
+    </div>
+  </div>
+    `;
+  }
+  $contenedorPokemon.innerHTML = results;
+}
+
+//DOM AREA
+
+$btnAbrirBuscador.addEventListener("click", () => {
+  $contBuscador.classList.remove("esconder");
+ });
+
 
 $btnRegresarPrincipal.addEventListener("click", () =>
   $contBuscador.classList.add("esconder")
 );
 
-$inputBuscador.addEventListener("keyup", () =>
-  BuscarResultados($inputBuscador.value)
-);
-
-d.addEventListener("click", (e) => {
-  if (e.target.matches(".resultados p")) BuscarPokemon(e.target.textContent);
+$inputBuscador.addEventListener("keyup", (e) => {
+  buscarPokemons(e.target.value);
 });
 
+
 // TraerNombres();
+
+
